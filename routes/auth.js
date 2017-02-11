@@ -28,7 +28,7 @@ router.get('/login', authHelpers.loginRedirect, (req, res)=> {
   res.render('auth/login');
 });
 
-//redirects user based on successful or failed login
+//redirects user based on successful or failed login from login page
 router.post('/login', passport.authenticate('local', {
     successRedirect: '/user',
     failureRedirect: '/auth/login',
@@ -36,6 +36,7 @@ router.post('/login', passport.authenticate('local', {
   })
 );
 
+//logs user out and redirects
 router.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/');

@@ -4,7 +4,6 @@ const models = require('../db/models/index');
 
 
 //compares encrypted password on server to user inputted password
-
 function comparePass(userPassword, databasePassword) {
   return bcrypt.compareSync(userPassword, databasePassword);
 }
@@ -25,4 +24,18 @@ function createUser(req, res) {
     name: req.body.name,
     email: req.body.email,
   });
+}
+
+//requires login on page visit
+function loginRequired(req, res, next) {
+  if (!req.user) res.redirect('/auth/login');
+
+  return next();
+}
+
+module.exports = {
+  comparePass,
+  loginRedirect,
+  loginRequired,
+  createUser
 }
