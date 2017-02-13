@@ -1,10 +1,27 @@
 body {
-  padding: 50px;
+  padding: 20px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #00041c;
   color: white; }
 
 a {
   color: #00B7FF; }
+
+.box1, .box2, .box3 {
+  background-color: #020433;
+  color: white;
+  display: inline-block;
+  height: 500px;
+  margin: 20px;
+  vertical-align: top; }
+
+.box1 {
+  width: 20%; }
+
+.box2 {
+  width: 40%; }
+
+.box3 {
+  width: 20%; }
 
 /*# sourceMappingURL=style.css.map */
