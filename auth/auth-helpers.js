@@ -18,10 +18,29 @@ function loginRedirect(req, res, next) {
 function createUser(req, res, next) {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
-  models.User.create({
+  return models.User.create({
     password: hash,
     name: req.body.name,
     email: req.body.email,
+  })
+  .then((user) => {
+    console.log(user)
+    res.locals.id = user.dataValues.id;
+    req.login(user, (err) => {
+      if (err) return next(err);
+    });
+  next();
+  })
+  .catch((err) => { res.status(500).json({ status: 'error' }); });
+}
+
+function createFavorites(req, res, next) {
+  console.log(req);
+   req.body.location.forEach((location) => {
+   models.Favorites.create({
+      userId: res.locals.id,
+      location: location
+    });
   });
   next();
 }
@@ -37,5 +56,6 @@ module.exports = {
   comparePass,
   loginRedirect,
   loginRequired,
-  createUser
+  createUser,
+  createFavorites
 }

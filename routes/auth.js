@@ -13,16 +13,15 @@ router.get('/register', authHelpers.loginRedirect, (req, res)=> {
 });
 
 //sends registration data to the db and redirects to user page
-router.post('/register', (req, res, next)  => {
-  authHelpers.createUser(req, res)
-  .then((user) => {
-    req.login(user, (err) => {
-      if (err) return next(err);
-
-      res.redirect('/auth/login');
-    });
-  })
-  .catch((err) => { res.status(500).json({ status: 'error' }); });
+router.post('/register', authHelpers.createUser, authHelpers.createFavorites, (req, res, next)  => {
+  // authHelpers.createUser(req, res)
+  // .then((user) => {
+  //   req.login(user, (err) => {
+  //     if (err) return next(err);
+        res.redirect('/auth/login');
+  //   });
+  // })
+  // .catch((err) => { res.status(500).json({ status: 'error' }); });
 });
 
 //sends user to the login page
