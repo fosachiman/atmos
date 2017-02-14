@@ -1,17 +1,30 @@
 const axios = require('axios');
 var moment = require('moment');
-//https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=YOUR_API_KEY
+const models = require('../db/models/index');
 
 function grabLocation(req, res, next) {
-
-
   if (req.params.location)
     res.locals.location = req.params.location;
   else
     res.locals.location = 'New York, NY';
-
-  //on a not logged in user, we add random locations
-  //on a logged in user, we add all of the locations that they have submitted
+  if (req.user) {
+    models.Favorites.findAll({
+      where: {
+        userId: req.params.id
+      }
+    })
+    .then(function(favorites) {
+      res.locals.otherLocations = [];
+      favorites.forEach(function(favorite) {
+        console.log('FAVORITE:' + favorite)
+        res.locals.otherLocations.push(favorite.location);
+      })
+        console.log(favorites);
+        // res.locals.otherLocations.push(dataValues.location);
+    })
+  }
+  else
+    res.locals.otherLocations = ['Birmingham, AL'];
   next();
 }
 
@@ -27,10 +40,27 @@ function getLocation(req, res, next) {
   })
 }
 
+function getOtherLocation(req, res, next) {
+  res.locals.secondaries = [];
+  res.locals.otherLocations.forEach(function(location) {
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEO_KEY}`)
+    .then(function(response) {
+    let lat = response.data.results[0].geometry.location.lat;
+    let lng = response.data.results[0].geometry.location.lng;
+    let formattedLocation = response.data.results[0].formatted_address;
+    res.locals.secondaries.push({
+      lat: lat,
+      lng: lng,
+      loc: formattedLocation
+    })
+    next();
+    })
+  })
+}
+
 function getWeatherData(req, res, next) {
   axios.get(`https://api.darksky.net/forecast/${process.env.WEATHER_KEY}/${res.locals.lat},${res.locals.lng}`)
   .then(function(response) {
-    console.log(response.data.daily);
     res.locals.weather = response.data;
     //convert time for the next 8 hours
     let hoursArray = [];
@@ -48,8 +78,24 @@ function getWeatherData(req, res, next) {
     })
 }
 
+// function getOtherWeatherData(req, res, next) {
+//   res.locals.otherWeather = [];
+//   res.locals.secondaries.forEach(function(secondary) {
+//     axios.get(`https://api.darksky.net/forecast/${process.env.WEATHER_KEY}/${secondary.lat},${secondary.lng}`)
+//     .then(function(response) {
+//       res.locals.otherWeather.push({
+//         weather: response.data
+//       })
+//       console.log(res.locals.otherWeather[0]);
+//     })
+//   })
+//   next();
+// }
+
 module.exports = {
   getLocation,
   getWeatherData,
-  grabLocation
+  grabLocation,
+  getOtherLocation,
+  // getOtherWeatherData
 }

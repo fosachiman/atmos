@@ -8,7 +8,6 @@ a {
   color: #00B7FF; }
 
 .box1, .box2, .box3 {
-  background-color: #020433;
   color: white;
   display: inline-block;
   height: 500px;
@@ -23,5 +22,42 @@ a {
 
 .box3 {
   width: 20%; }
+
+.daily > .icon {
+  display: inline-block; }
+
+.daily > .days {
+  display: inline-block; }
+
+.daily-high, .daily-low {
+  display: inline-block; }
+
+#main-icon {
+  display: inline-block; }
+
+.main-weather {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 30px;
+  font-size: 1.5em; }
+
+.humidity, .wind, .visibility {
+  display: inline-block;
+  margin-left: 30px; }
+
+.hourly {
+  display: inline-block;
+  text-align: center;
+  margin-left: 10px;
+  margin-top: 20px; }
+
+.location {
+  text-align: center; }
+
+.register-form > input, label {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  width: 500px; }
 
 /*# sourceMappingURL=style.css.map */
