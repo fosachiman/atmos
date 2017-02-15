@@ -5,9 +5,14 @@ const models = require('../db/models/index');
 function grabLocation(req, res, next) {
   if (req.params.location)
     res.locals.location = req.params.location;
-  else
+  else {
     res.locals.location = 'New York, NY';
-  if (req.user) {
+  }
+  next();
+}
+
+function otherLocations() {
+    if (req.user) {
     models.Favorites.findAll({
       where: {
         userId: req.params.id
@@ -19,13 +24,13 @@ function grabLocation(req, res, next) {
         console.log('FAVORITE:' + favorite)
         res.locals.otherLocations.push(favorite.location);
       })
-        console.log(favorites);
+        console.log(res.locals.otherLocations);
         // res.locals.otherLocations.push(dataValues.location);
     })
   }
-  else
-    res.locals.otherLocations = ['Birmingham, AL'];
-  next();
+  else {
+    res.locals.otherLocations = ['Birmingham, AL', 'Los Angeles, CA', 'Bangkok, Thailand', 'Sao Paolo, Brazil', 'Berlin, Germany'];
+  }
 }
 
 //on page load, we will grab the latitude and longitude of NYC to pass to dark skies api
@@ -40,23 +45,23 @@ function getLocation(req, res, next) {
   })
 }
 
-function getOtherLocation(req, res, next) {
-  res.locals.secondaries = [];
-  res.locals.otherLocations.forEach(function(location) {
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEO_KEY}`)
-    .then(function(response) {
-    let lat = response.data.results[0].geometry.location.lat;
-    let lng = response.data.results[0].geometry.location.lng;
-    let formattedLocation = response.data.results[0].formatted_address;
-    res.locals.secondaries.push({
-      lat: lat,
-      lng: lng,
-      loc: formattedLocation
-    })
-    next();
-    })
-  })
-}
+// function getOtherLocation(req, res, next) {
+//   res.locals.secondaries = [];
+//   res.locals.otherLocations.forEach(function(location) {
+//     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEO_KEY}`)
+//     .then(function(response) {
+//     let lat = response.data.results[0].geometry.location.lat;
+//     let lng = response.data.results[0].geometry.location.lng;
+//     let formattedLocation = response.data.results[0].formatted_address;
+//     res.locals.secondaries.push({
+//       lat: lat,
+//       lng: lng,
+//       loc: formattedLocation
+//     })
+//     next();
+//     })
+//   })
+// }
 
 function getWeatherData(req, res, next) {
   axios.get(`https://api.darksky.net/forecast/${process.env.WEATHER_KEY}/${res.locals.lat},${res.locals.lng}`)
@@ -78,24 +83,9 @@ function getWeatherData(req, res, next) {
     })
 }
 
-// function getOtherWeatherData(req, res, next) {
-//   res.locals.otherWeather = [];
-//   res.locals.secondaries.forEach(function(secondary) {
-//     axios.get(`https://api.darksky.net/forecast/${process.env.WEATHER_KEY}/${secondary.lat},${secondary.lng}`)
-//     .then(function(response) {
-//       res.locals.otherWeather.push({
-//         weather: response.data
-//       })
-//       console.log(res.locals.otherWeather[0]);
-//     })
-//   })
-//   next();
-// }
-
 module.exports = {
   getLocation,
   getWeatherData,
   grabLocation,
-  getOtherLocation,
-  // getOtherWeatherData
+
 }

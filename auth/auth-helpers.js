@@ -10,7 +10,6 @@ function comparePass(userPassword, databasePassword) {
 //redirects user to user page if they're already logged in
 function loginRedirect(req, res, next) {
   if (req.user) res.redirect('/users/' + req.user.id);
-
   return next();
 }
 

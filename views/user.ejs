@@ -3,7 +3,7 @@
   <% include ./partials/head %>
   <body>
     <h1><%= title %></h1>
-    <form method="post" action="/">
+    <form method="post" action="<%="/users/" + user.id %>">
       <input type="text" name="location">
       <input type="submit">
     </form>

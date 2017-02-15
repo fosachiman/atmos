@@ -4,23 +4,24 @@ const apiHelpers = require('../api_helpers/index_helpers');
 const authHelpers = require('../auth/auth-helpers')
 
 /* GET home page. */
-router.get('/', apiHelpers.grabLocation, apiHelpers.getLocation, apiHelpers.getWeatherData, apiHelpers.getOtherLocation, function(req, res, next) {
+router.get('/', authHelpers.loginRedirect, apiHelpers.grabLocation, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
   res.render('index', {
     title: 'atmos',
     weather: res.locals.weather,
     location: res.locals.location,
     hours: res.locals.hours,
     days: res.locals.days,
-    secondaries: res.locals.secondaries,
-    // otherWeather: res.locals.otherWeather
+    secondaries: res.locals.otherLocations,
   });
 });
 
-router.get('/:location', apiHelpers.grabLocation, apiHelpers.getLocation, apiHelpers.getWeatherData, apiHelpers.getOtherLocation, function(req, res, next) {
+router.get('/:location', apiHelpers.grabLocation, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
   res.render('index', {
     title: 'atmos',
     weather: res.locals.weather,
     location: res.locals.location,
+    hours: res.locals.hours,
+    days: res.locals.days,
     secondaries: res.locals.secondaries,
   });
 });
