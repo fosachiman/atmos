@@ -1,56 +1,58 @@
-
 <canvas class="icon" id="main-icon" icon="<%=weather.currently.icon%>" width="128" height="128"></canvas>
 <div class="main-weather">
-<h3 class="location"><%=location%></h3>
-<p><%=weather.currently.temperature%></p>
-<p>Feels like: <%=weather.currently.apparentTemperature%></p>
+  <h3 class="location"><%=location%></h3>
+  <p><%=Math.round(weather.currently.temperature)%>&#8457</p>
+  <p>Feels like: <%=Math.round(weather.currently.apparentTemperature)%>&#8457</p>
 </div>
 <% if (weather.minutely != undefined) { %>
-<p><%=weather.minutely.summary%></p>
+<p class="desc"><%=weather.minutely.summary%></p>
 <% } %>
-<p><%=weather.hourly.summary%></p>
-<p class="humidity">Humidity: <%=weather.currently.humidity%></p>
-<p class="wind">Wind: <%=weather.currently.windSpeed%></p>
-<p class="visibility">Visibility: <%=weather.currently.visibility%></p>
+<p class="desc"><%=weather.hourly.summary%></p>
+<div class="stats-flex">
+  <p class="humidity">Humidity: <%=parseInt(weather.currently.humidity* 100) %>%</p>
+  <p class="wind">Wind: <%=weather.currently.windSpeed%>MPH</p>
+  <p class="visibility">Visibility: <%=weather.currently.visibility%></p>
+</div>
 </br>
-
-<div class="hourly">
-  <canvas class="icon" id="hourly1" icon="<%=weather.hourly.data[0].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[0].temperature%></p>
-  <p><%=hours[0]%></p>
-</div>
-<div class="hourly">
-  <canvas class="icon" id="hourly2" icon="<%=weather.hourly.data[1].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[1].temperature%></p>
-  <p><%=hours[1]%></p>
-</div>
-<div class="hourly">
-  <canvas class="icon" id="hourly3" icon="<%=weather.hourly.data[2].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[2].temperature%></p>
-  <p><%=hours[2]%></p>
-</div>
-<div class="hourly">
-  <canvas class="icon" id="hourly4" icon="<%=weather.hourly.data[3].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[3].temperature%></p>
-  <p><%=hours[3]%></p>
-</div>
-<div class="hourly">
-  <canvas class="icon" id="hourly5" icon="<%=weather.hourly.data[4].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[4].temperature%></p>
-  <p><%=hours[4]%></p>
-</div>
-<div class="hourly">
-  <canvas class="icon" id="hourly6" icon="<%=weather.hourly.data[5].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[5].temperature%></p>
-  <p><%=hours[5]%></p>
-</div>
-<div class="hourly">
-  <canvas class="icon" id="hourly7" icon="<%=weather.hourly.data[6].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[6].temperature%></p>
-  <p><%=hours[6]%></p>
-</div>
-<div class="hourly">
-  <canvas class="icon" id="hourly8" icon="<%=weather.hourly.data[7].icon%>" width="40px" height="40px"></canvas>
-  <p><%=weather.hourly.data[7].temperature%></p>
-  <p><%=hours[7]%></p>
+<div class="hourly-flex">
+  <div class="hourly">
+    <canvas class="icon" id="hourly1" icon="<%=weather.hourly.data[0].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[0].temperature)%>&#8457</p>
+    <p><%=hours[0]%></p>
+  </div>
+  <div class="hourly">
+    <canvas class="icon" id="hourly2" icon="<%=weather.hourly.data[1].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[1].temperature)%>&#8457</p>
+    <p><%=hours[1]%></p>
+  </div>
+  <div class="hourly">
+    <canvas class="icon" id="hourly3" icon="<%=weather.hourly.data[2].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[2].temperature)%>&#8457</p>
+    <p><%=hours[2]%></p>
+  </div>
+  <div class="hourly">
+    <canvas class="icon" id="hourly4" icon="<%=weather.hourly.data[3].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[3].temperature)%>&#8457</p>
+    <p><%=hours[3]%></p>
+  </div>
+  <div class="hourly">
+    <canvas class="icon" id="hourly5" icon="<%=weather.hourly.data[4].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[4].temperature)%>&#8457</p>
+    <p><%=hours[4]%></p>
+  </div>
+  <div class="hourly">
+    <canvas class="icon" id="hourly6" icon="<%=weather.hourly.data[5].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[5].temperature)%>&#8457</p>
+    <p><%=hours[5]%></p>
+  </div>
+  <div class="hourly">
+    <canvas class="icon" id="hourly7" icon="<%=weather.hourly.data[6].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[6].temperature)%>&#8457</p>
+    <p><%=hours[6]%></p>
+  </div>
+  <div class="hourly">
+    <canvas class="icon" id="hourly8" icon="<%=weather.hourly.data[7].icon%>" width="40px" height="40px"></canvas>
+    <p><%=Math.round(weather.hourly.data[7].temperature)%>&#8457</p>
+    <p><%=hours[7]%></p>
+  </div>
 </div>

@@ -2,21 +2,29 @@
 <html>
   <% include ./partials/head %>
   <body>
-    <h1><%= title %></h1>
-    <form method="post" action="<%="/users/" + user.id %>">
-      <input type="text" name="location">
-      <input type="submit">
-    </form>
-    <p>Hello, <%=user.name%></p>
-    <a href="/auth/logout" src="logout">Log Out</a>
-  <div class="box1">
-    <% include ./partials/daily-box %>
-  </div>
-  <div class="box2">
-    <% include ./partials/main_box %>
-  </div>
-  <div class="box3">
-    <% include ./partials/locations-box%>
+    <div class="header">
+      <h1 class="logo"><a href='/'><%= title %></a></h1>
+      <form method="post" action="<%="/users/" + user.id %>">
+        <input class="input" type="text" name="location">
+        <input  type="submit">
+      </form>
+      <div>
+        <p><%='Hello, ' + user.name%></p>
+        <a href="/auth/logout" src="login">Log Out</a>
+      </div>
+    </div>
+  <div class="body-container">
+    <div class="box1">
+      <% include ./partials/daily-box %>
+    </div>
+    <div class="box2">
+      <% include ./partials/main_box %>
+    </div>
+    <div class="box3">
+      <%secondaries.forEach(function(secondary) { %>
+        <a class="location-right" href="<%="/users/" + user.id + '/location/' + secondary%>" src="<%=secondary%>"><%=secondary%></a>
+      <% }) %>
+    </div>
   </div>
     <% include ./partials/scripts %>
   </body>

@@ -4,7 +4,7 @@ const apiHelpers = require('../api_helpers/index_helpers');
 const authHelpers = require('../auth/auth-helpers');
 
 //gets location typed into the search bar for a logged in user
-router.get('/:id/location/:location', authHelpers.loginRequired, apiHelpers.grabLocation, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
+router.get('/:id/location/:location', authHelpers.loginRequired, apiHelpers.grabLocation, apiHelpers.otherLocations, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
   res.render('user', {
     user: req.user.dataValues,
     title: 'atmos',
@@ -17,7 +17,7 @@ router.get('/:id/location/:location', authHelpers.loginRequired, apiHelpers.grab
 });
 
 //GETs user page and requires a logged in user
-router.get('/:id', authHelpers.loginRequired, apiHelpers.grabLocation, apiHelpers.getLocation, apiHelpers.getWeatherData, (req, res, next) => {
+router.get('/:id', authHelpers.loginRequired, apiHelpers.grabLocation, apiHelpers.otherLocations, apiHelpers.getLocation, apiHelpers.getWeatherData, (req, res, next) => {
   res.render('user', {
     user: req.user.dataValues,
     title: 'atmos',
@@ -28,8 +28,6 @@ router.get('/:id', authHelpers.loginRequired, apiHelpers.grabLocation, apiHelper
     secondaries: res.locals.otherLocations,
   });
 });
-
-
 
 router.post('/:id/', function(req, res, next) {
   res.redirect('/users/' + req.params.id + '/location/' + req.body.location);

@@ -3,12 +3,12 @@
   <% include ./partials/head %>
 <body>
   <h1>Login</h1>
-  <form method="post" action="/auth/login">
+  <form class="register-form" method="post" action="/auth/login">
     <label>Email</label>
-    <input type='text' name='email'>
+    <input class="input" type='text' name='email'>
     <label>Password</label>
-    <input type='password' name='password'>
-    <input type="submit">
+    <input class="input" type='password' name='password'>
+    <input class="submit" type="submit">
   </form>
   <% include ./partials/scripts %>
 </body>

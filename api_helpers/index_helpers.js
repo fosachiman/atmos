@@ -11,8 +11,8 @@ function grabLocation(req, res, next) {
   next();
 }
 
-function otherLocations() {
-    if (req.user) {
+function otherLocations(req, res, next) {
+  if (req.user) {
     models.Favorites.findAll({
       where: {
         userId: req.params.id
@@ -21,16 +21,15 @@ function otherLocations() {
     .then(function(favorites) {
       res.locals.otherLocations = [];
       favorites.forEach(function(favorite) {
-        console.log('FAVORITE:' + favorite)
         res.locals.otherLocations.push(favorite.location);
       })
-        console.log(res.locals.otherLocations);
-        // res.locals.otherLocations.push(dataValues.location);
     })
   }
   else {
     res.locals.otherLocations = ['Birmingham, AL', 'Los Angeles, CA', 'Bangkok, Thailand', 'Sao Paolo, Brazil', 'Berlin, Germany'];
+    console.log(res.locals.otherLocations);
   }
+  next();
 }
 
 //on page load, we will grab the latitude and longitude of NYC to pass to dark skies api
@@ -44,24 +43,6 @@ function getLocation(req, res, next) {
     next();
   })
 }
-
-// function getOtherLocation(req, res, next) {
-//   res.locals.secondaries = [];
-//   res.locals.otherLocations.forEach(function(location) {
-//     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${location}&key=${process.env.GEO_KEY}`)
-//     .then(function(response) {
-//     let lat = response.data.results[0].geometry.location.lat;
-//     let lng = response.data.results[0].geometry.location.lng;
-//     let formattedLocation = response.data.results[0].formatted_address;
-//     res.locals.secondaries.push({
-//       lat: lat,
-//       lng: lng,
-//       loc: formattedLocation
-//     })
-//     next();
-//     })
-//   })
-// }
 
 function getWeatherData(req, res, next) {
   axios.get(`https://api.darksky.net/forecast/${process.env.WEATHER_KEY}/${res.locals.lat},${res.locals.lng}`)
@@ -87,5 +68,5 @@ module.exports = {
   getLocation,
   getWeatherData,
   grabLocation,
-
+  otherLocations,
 }
