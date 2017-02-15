@@ -5,8 +5,8 @@
     <div class="header">
       <h1 class="logo"><a href='/'><%= title %></a></h1>
       <form method="post" action="/">
-        <input class="input" type="text" name="location">
-        <input type="submit">
+        <input class="input" type="text" name="location" placeholder="Location">
+        <input class="submit" type="submit" value="Get Weather">
       </form>
       <div>
         <a href="/auth/register" src="register">Register</a>
@@ -21,6 +21,7 @@
       <% include ./partials/main_box %>
     </div>
     <div class="box3">
+      <p>Sign in to view your locations</p>
       <%secondaries.forEach(function(secondary) { %>
         <a class="location-right" href="<%="/" + secondary%>" src="<%=secondary%>"><%=secondary%></a>
       <% }) %>

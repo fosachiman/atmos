@@ -5,8 +5,8 @@
     <div class="header">
       <h1 class="logo"><a href='/'><%= title %></a></h1>
       <form method="post" action="<%="/users/" + user.id %>">
-        <input class="input" type="text" name="location">
-        <input  type="submit">
+        <input class="input" type="text" name="location" placeholder="location">
+        <input class="submit" type="submit" value="Get Weather">
       </form>
       <div>
         <p><%='Hello, ' + user.name%></p>

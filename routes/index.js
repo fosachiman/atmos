@@ -3,7 +3,7 @@ var router = express.Router();
 const apiHelpers = require('../api_helpers/index_helpers');
 const authHelpers = require('../auth/auth-helpers')
 
-/* GET home page. */
+//gets homepage
 router.get('/', authHelpers.loginRedirect, apiHelpers.grabLocation, apiHelpers.otherLocations, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
   res.render('index', {
     title: 'atmos',
@@ -15,6 +15,7 @@ router.get('/', authHelpers.loginRedirect, apiHelpers.grabLocation, apiHelpers.o
   });
 });
 
+//gets location when a user submits a location from the search bar
 router.get('/:location', apiHelpers.grabLocation, apiHelpers.otherLocations, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
   res.render('index', {
     title: 'atmos',

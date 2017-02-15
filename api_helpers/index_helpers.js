@@ -2,6 +2,7 @@ const axios = require('axios');
 var moment = require('moment');
 const models = require('../db/models/index');
 
+//grabs location from search params or returns NY, NY
 function grabLocation(req, res, next) {
   if (req.params.location)
     res.locals.location = req.params.location;
@@ -11,6 +12,7 @@ function grabLocation(req, res, next) {
   next();
 }
 
+//pulls locations from logged in users from the database, or adds base locations to the sidebar for easy access
 function otherLocations(req, res, next) {
   if (req.user) {
     models.Favorites.findAll({
@@ -44,6 +46,7 @@ function getLocation(req, res, next) {
   })
 }
 
+//pulls weather data from lat and lng pulled from google api and makes a get request to dark skies api
 function getWeatherData(req, res, next) {
   axios.get(`https://api.darksky.net/forecast/${process.env.WEATHER_KEY}/${res.locals.lat},${res.locals.lng}`)
   .then(function(response) {
