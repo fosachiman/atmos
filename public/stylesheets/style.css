@@ -21,7 +21,7 @@ a {
   border-radius: 5px; }
 
 .body-container {
-  margin: 3% 5%;
+  margin: 3% 3%;
   display: flex;
   justify-content: space-between;
   align-items: top; }
@@ -31,13 +31,14 @@ a {
   vertical-align: top; }
 
 .box1 {
-  width: 15%; }
+  width: 18%;
+  max-width: 175px; }
 
 .box2 {
-  width: 50%; }
+  width: 55%; }
 
 .box3 {
-  width: 15%; }
+  width: 18%; }
 
 .daily {
   display: flex;
@@ -48,13 +49,17 @@ a {
   color: gray; }
 
 #main-icon {
-  display: inline-block; }
+  width: 150px;
+  height: 150px; }
+
+.main-weather-container {
+  display: flex;
+  justify-content: center; }
 
 .main-weather {
-  display: inline-block;
   vertical-align: top;
-  margin-left: 30px;
-  font-size: 1.5em; }
+  font-size: 1.5em;
+  margin-left: 30px; }
 
 .humidity, .wind, .visibility {
   display: inline-block;
@@ -81,7 +86,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 5%; }
+  margin: 0 3%; }
 
 .input {
   border: none;
@@ -105,13 +110,17 @@ a {
 .desc {
   text-align: center; }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 768px) {
+@media (min-width: 320px) and (max-width: 768px) {
   .body-container {
     display: flex;
     flex-direction: column; }
   .box1 {
     width: 90%;
-    order: 2; }
+    order: 2;
+    max-width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
   .box2 {
     width: 90%;
     order: 1; }
@@ -124,6 +133,12 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 5%; } }
+    margin: 0 5%; }
+  .daily {
+    display: flex;
+    flex-direction: column; }
+  .icon {
+    width: 30px;
+    height: 30px; } }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,8 +1,10 @@
-<canvas class="icon" id="main-icon" icon="<%=weather.currently.icon%>" width="128" height="128"></canvas>
-<div class="main-weather">
-  <h3 class="location"><%=location%></h3>
-  <p><%=Math.round(weather.currently.temperature)%>&#8457</p>
-  <p>Feels like: <%=Math.round(weather.currently.apparentTemperature)%>&#8457</p>
+<div class="main-weather-container">
+  <canvas class="icon" id="main-icon" icon="<%=weather.currently.icon%>" width="128" height="128"></canvas>
+  <div class="main-weather">
+    <h3 class="location"><%=location%></h3>
+    <p><%=Math.round(weather.currently.temperature)%>&#8457</p>
+    <p>Feels like: <%=Math.round(weather.currently.apparentTemperature)%>&#8457</p>
+  </div>
 </div>
 <% if (weather.minutely != undefined) { %>
 <p class="desc"><%=weather.minutely.summary%></p>
