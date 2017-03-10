@@ -31,5 +31,9 @@ router.post('/', function(req, res, next) {
   res.redirect('/' + req.body.location);
 });
 
+router.post('/geo', function(req, res, next) {
+  res.redirect('/geo/' + req.body.lat + '--' + req.body.lng)
+})
+
 
 module.exports = router;

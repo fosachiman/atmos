@@ -64,7 +64,7 @@ function getWeatherData(req, res, next) {
     }
     res.locals.days = daysArray;
     next();
-    })
+  })
 }
 
 module.exports = {
