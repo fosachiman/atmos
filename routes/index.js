@@ -15,6 +15,8 @@ router.get('/', authHelpers.loginRedirect, apiHelpers.grabLocation, apiHelpers.o
   });
 });
 
+// router.get('/geo/:coordinates', )
+
 //gets location when a user submits a location from the search bar
 router.get('/:location', apiHelpers.grabLocation, apiHelpers.otherLocations, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
   res.render('index', {
@@ -30,10 +32,5 @@ router.get('/:location', apiHelpers.grabLocation, apiHelpers.otherLocations, api
 router.post('/', function(req, res, next) {
   res.redirect('/' + req.body.location);
 });
-
-router.post('/geo', function(req, res, next) {
-  res.redirect('/geo/' + req.body.lat + '--' + req.body.lng)
-})
-
 
 module.exports = router;

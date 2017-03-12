@@ -11,16 +11,13 @@ function success(pos) {
   let lng = crd.longitude;
   console.log(lat);
   console.log(lng);
-//   axios.post('/geo', {
-//     lat: lat,
-//     lng: lng,
-//   })
-//   .then(function(response) {
-//     console.log(response)
-//   })
-//   .catch(function(response) {
-//     console.log(response)
-//   })
+  axios.get(`/geo/${lat}--${lng}`)
+  .then(function(response) {
+    console.log(response)
+  })
+  .catch(function(response) {
+    console.log(response)
+  })
 };
 
 function error(err) {
