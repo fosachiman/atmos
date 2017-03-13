@@ -15,7 +15,16 @@ router.get('/', authHelpers.loginRedirect, apiHelpers.grabLocation, apiHelpers.o
   });
 });
 
-// router.get('/geo/:coordinates', )
+router.get('/geo/:coordinates', apiHelpers.parseGeoData, apiHelpers.revGeoCode, apiHelpers.otherLocations, apiHelpers.getWeatherData, function(req, res, next) {
+  res.render('index', {
+    title: 'atmos',
+    weather: res.locals.weather,
+    location: res.locals.location,
+    hours: res.locals.hours,
+    days: res.locals.days,
+    secondaries: res.locals.otherLocations,
+  });
+})
 
 //gets location when a user submits a location from the search bar
 router.get('/:location', apiHelpers.grabLocation, apiHelpers.otherLocations, apiHelpers.getLocation, apiHelpers.getWeatherData, function(req, res, next) {
@@ -32,5 +41,8 @@ router.get('/:location', apiHelpers.grabLocation, apiHelpers.otherLocations, api
 router.post('/', function(req, res, next) {
   res.redirect('/' + req.body.location);
 });
+router.post('/geo/:coordinates', function(req, res, next) {
+  res.redirect('/geo/' + req.params.coordinates);
+})
 
 module.exports = router;

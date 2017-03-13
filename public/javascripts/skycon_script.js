@@ -1,5 +1,5 @@
 
-var skycons = new Skycons({
+let skycons = new Skycons({
   "color": "white"
   // "resizeClear": true
 });

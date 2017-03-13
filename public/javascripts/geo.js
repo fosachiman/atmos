@@ -1,4 +1,3 @@
-console.log('hello!');
 
 let options = {
   timeout: 5000,
@@ -9,15 +8,13 @@ function success(pos) {
   let crd = pos.coords;
   let lat = crd.latitude;
   let lng = crd.longitude;
-  console.log(lat);
-  console.log(lng);
-  axios.get(`/geo/${lat}--${lng}`)
-  .then(function(response) {
-    console.log(response)
-  })
-  .catch(function(response) {
-    console.log(response)
-  })
+
+  let headerForm = document.querySelector('#header-form');
+  let locationLink = document.createElement('a');
+  locationLink.setAttribute('href', `/geo/${lat}--${lng}`)
+  locationLink.setAttribute('class', 'submit');
+  locationLink.innerHTML = 'My Location';
+  headerForm.appendChild(locationLink);
 };
 
 function error(err) {
@@ -25,3 +22,4 @@ function error(err) {
 };
 
 navigator.geolocation.getCurrentPosition(success, error, options);
+

@@ -4,13 +4,13 @@
   <body>
     <div class="header">
       <h1 class="logo"><a href='/'><%= title %></a></h1>
-      <form method="post" action="/">
+      <form id="header-form" method="post" action="/">
         <input class="input" type="text" name="location" placeholder="Location">
         <input class="submit" type="submit" value="Get Weather">
       </form>
-      <div>
-        <a href="/auth/register" src="register">Register</a>
-        <a href="/auth/login" src="login">Log In</a>
+      <div class="right-header">
+        <a class="submit" href="/auth/register" src="register">Register</a>
+        <a class="submit" href="/auth/login" src="login">Log In</a>
       </div>
     </div>
   <div class="body-container">

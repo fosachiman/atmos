@@ -4,8 +4,10 @@ const models = require('../db/models/index');
 
 //grabs location from search params or returns NY, NY
 function grabLocation(req, res, next) {
-  if (req.params.location)
+  if (req.params.location) {
+    console.log(req.params.location);
     res.locals.location = req.params.location;
+  }
   else {
     res.locals.location = 'New York, NY';
   }
@@ -38,11 +40,13 @@ function otherLocations(req, res, next) {
 function getLocation(req, res, next) {
   axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${res.locals.location}&key=${process.env.GEO_KEY}`)
   .then(function(response) {
-    // console.log(response.data.results[0].formatted_address);
     res.locals.lat = response.data.results[0].geometry.location.lat;
     res.locals.lng = response.data.results[0].geometry.location.lng;
     res.locals.location = response.data.results[0].formatted_address;
     next();
+  })
+  .catch(function(response) {
+    console.log(response);
   })
 }
 
@@ -51,7 +55,7 @@ function getWeatherData(req, res, next) {
   axios.get(`https://api.darksky.net/forecast/${process.env.WEATHER_KEY}/${res.locals.lat},${res.locals.lng}`)
   .then(function(response) {
     res.locals.weather = response.data;
-    //convert time for the next 8 hours
+    //convert time for the next 8
     let hoursArray = [];
     for (let i = 0; i < 8; i++) {
       hoursArray.push(moment.unix(response.data.hourly.data[i].time).format('hA'));
@@ -65,6 +69,31 @@ function getWeatherData(req, res, next) {
     res.locals.days = daysArray;
     next();
   })
+  .catch(function(response) {
+    console.log(response);
+  })
+}
+
+function parseGeoData(req, res, next) {
+  if (req.params.coordinates) {
+    console.log(req.params.coordinates);
+    let str = req.params.coordinates;
+    let coords = str.split('--');
+    res.locals.lat = coords[0];
+    res.locals.lng = coords[1];
+  }
+  next();
+}
+
+function revGeoCode(req, res, next) {
+  axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${res.locals.lat},${res.locals.lng}&key=${process.env.GEO_KEY}`)
+  .then(function(response) {
+    res.locals.location = response.data.results[0].formatted_address;
+    next();
+  })
+  .catch(function(response) {
+    console.log(response);
+  })
 }
 
 module.exports = {
@@ -72,4 +101,6 @@ module.exports = {
   getWeatherData,
   grabLocation,
   otherLocations,
+  parseGeoData,
+  revGeoCode,
 }

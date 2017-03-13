@@ -16,6 +16,17 @@ router.get('/:id/location/:location', authHelpers.loginRequired, apiHelpers.grab
   });
 });
 
+router.get('/geo/:coordinates', authHelpers.loginRequired, apiHelpers.parseGeoData, apiHelpers.revGeoCode, apiHelpers.otherLocations, apiHelpers.getWeatherData, function(req, res, next) {
+  res.render('index', {
+    title: 'atmos',
+    weather: res.locals.weather,
+    location: res.locals.location,
+    hours: res.locals.hours,
+    days: res.locals.days,
+    secondaries: res.locals.otherLocations,
+  });
+})
+
 //GETs user page and requires a logged in user
 router.get('/:id', authHelpers.loginRequired, apiHelpers.grabLocation, apiHelpers.otherLocations, apiHelpers.getLocation, apiHelpers.getWeatherData, (req, res, next) => {
   res.render('user', {

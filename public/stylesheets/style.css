@@ -16,9 +16,18 @@ a {
   color: white;
   border: 2px solid #00B7FF;
   background-color: #00041c;
-  padding: 20px 30px;
+  padding: 20px 20px;
   font-family: "Raleway", sans-serif;
-  border-radius: 5px; }
+  border-radius: 5px;
+  font-size: .75em;
+  display: inline-block; }
+
+.submit:hover {
+  cursor: pointer;
+  background-color: white;
+  color: #00B7FF;
+  font-weight: 700;
+  transition: all .5s; }
 
 .body-container {
   margin: 3% 3%;
@@ -47,6 +56,17 @@ a {
 
 .daily-low {
   color: gray; }
+
+.right-header {
+  width: 18%;
+  display: flex;
+  justify-content: flex-start; }
+
+.right-header a {
+  margin-right: 10px; }
+
+.hello {
+  margin-right: 10px; }
 
 #main-icon {
   width: 150px;
@@ -126,7 +146,8 @@ a {
     order: 1; }
   .box3 {
     width: 90%;
-    order: 3; }
+    order: 3;
+    visibility: hidden; }
   .header {
     text-align: right;
     flex-direction: column;
@@ -139,6 +160,8 @@ a {
     flex-direction: column; }
   .icon {
     width: 30px;
-    height: 30px; } }
+    height: 30px; }
+  .right-header {
+    visibility: hidden; } }
 
 /*# sourceMappingURL=style.css.map */
