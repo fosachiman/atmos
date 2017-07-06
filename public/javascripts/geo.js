@@ -1,3 +1,12 @@
+let lat, lng;
+// let headerForm = document.querySelector('#header-form');
+// let locationLink = document.createElement('a');
+
+// locationLink.setAttribute('class', 'submit');
+// locationLink.innerHTML = 'My Location';
+// headerForm.appendChild(locationLink);
+let locationButton = document.querySelector('#location-button');
+locationButton.style.borderColor = 'gray';
 
 let options = {
   timeout: 5000,
@@ -6,15 +15,10 @@ let options = {
 
 function success(pos) {
   let crd = pos.coords;
-  let lat = crd.latitude;
-  let lng = crd.longitude;
-
-  let headerForm = document.querySelector('#header-form');
-  let locationLink = document.createElement('a');
-  locationLink.setAttribute('href', `/geo/${lat}--${lng}`)
-  locationLink.setAttribute('class', 'submit');
-  locationLink.innerHTML = 'My Location';
-  headerForm.appendChild(locationLink);
+  lat = crd.latitude;
+  lng = crd.longitude;
+  locationButton.style.borderColor = "#00B7FF"
+  locationButton.setAttribute('href', `/geo/${lat}--${lng}`)
 };
 
 function error(err) {
@@ -23,3 +27,4 @@ function error(err) {
 
 navigator.geolocation.getCurrentPosition(success, error, options);
 
+//my location should be there, on click it should run all of the stuff above

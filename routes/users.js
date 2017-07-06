@@ -16,8 +16,9 @@ router.get('/:id/location/:location', authHelpers.loginRequired, apiHelpers.grab
   });
 });
 
-router.get('/geo/:coordinates', authHelpers.loginRequired, apiHelpers.parseGeoData, apiHelpers.revGeoCode, apiHelpers.otherLocations, apiHelpers.getWeatherData, function(req, res, next) {
+router.get('/:id/geo/:coordinates', authHelpers.loginRequired, apiHelpers.parseGeoData, apiHelpers.revGeoCode, apiHelpers.otherLocations, apiHelpers.getWeatherData, function(req, res, next) {
   res.render('index', {
+    user: req.user.dataValues,
     title: 'atmos',
     weather: res.locals.weather,
     location: res.locals.location,
