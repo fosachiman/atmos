@@ -2,7 +2,7 @@
   "name": "nodeweather",
   "version": "0.0.0",
   "engines" : {
-    "npm" : "~7.10.1"
+    "node" : "~7.10.1"
   },
   "private": true,
   "scripts": {
